@@ -1,0 +1,64 @@
+Q. Learn File structure from react official site
+
+- Avoid too much nesting in file structure
+- Creating react app is easy but maintaining it is very hard.
+- Uber has a rule to keep 200 lines per file. if there are more lines then we have to do something about it - Akshay
+- Component names must start with capital letter. e.g. Header, Title, etc. Why? Earlier react used to maintain a array of html tags ["div", "p", ...]. if we write a component name with small letter, react will assume that it is a html tag and not a component.
+- Header.js is same as Header.jsx. But some libraraies find it difficult to find .jsx extension. Good Practice is to write Header.js
+
+# EXPORT IMPORT
+
+- Two steps for using a component 
+    1) export from component file
+    2) import in App.js
+- two ways of exporting. let's say component name is Header
+    1) DEFAULT EXPORT = 
+        - `export default Header` . Write in last line of component file
+        - for exporting only one thing.
+        - `import Header from ./components/Header` . Write in App.js. This is DEFAULT IMPORT
+        - In default import, you can change the name of imported component. like this. `import NewHeader from ./components/Header`.
+
+    2) NAMED EXPORT = 
+        - Akshay uses Named import most of the times whenever there are more than one component in a single file.
+        - `export const Header`. Write while creating the component in component file.
+        - `import { Header, Title } from ./components/Header`. Write in App.js. This is not object destructuring, it only looks like that.
+        - We can import like this, 
+            `import * as obj from ./components/Header`.
+            then use this component like this - <obj.Header />, <obj.Title />
+
+- Consider Header and Title is in same component file. Title is Named Exported, Header is Default exported. so we can write this.
+`import Header, { Title } from ./components/Header` in App.js
+
+# CONSTANT.JS FILE
+
+- Good practice to create a `config.js/constant.js` file in src folder. 
+- Why constant.js file?  When we need a same thing in many places we can put it in constant.js file and name it something. e.g.
+constant.js -> export const IMAGE_CDN_URL = "http://xyz.com/img.jpg"
+Other files -> import { IMAGE_CDN_URL } from "./constants"
+
+# SEARCH INPUT
+
+- let searchTxt = "KFC";
+- <input type="text" value={searchTxt} >. This will show KFC in text feild but we unable to change it
+- add `onChange= { (e)=>  {searchTxt = e.target.value;} } `
+- Here we have hard coded the value. bcz we used a variable searchTxt. Local variable are not recommended in react like this. remove searchTxt.
+- Every component in react maintains a state, you can put in all the variables into state, and everytime you have to create a local varible you will use state  variable - Akshay
+- React has one way binding. Why do we need useState? React doesnt know about the variable, if a variable is changes through a fn , react will not change it in th e UI. We need to tell React that "I need to keep this variable in syc with the UI."
+
+- onChange = { (e)=> setSearchInput(e.target.value) }    
+👆 This is the correct way now.
+
+Local variable in react - ` const [searchTxt] = useState("KFC"); `
+This will create a searchTxt variable with value KFC, we can only change the value using a function, that function is provided by useState. in below example, setSearchInput in that function provided by useState, we can name it anything.
+ ` const [searchTxt, setSearchInput] = useState("KFC"); `
+
+# HOOK
+
+- Hook is just a normal function. e.g. useState is a hook
+- `import { useState } from "react" `;
+
+# useState
+
+- to create a state variable
+- it return a array, [variableName, function to update the variable]
+
