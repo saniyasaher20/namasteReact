@@ -12,7 +12,7 @@
 - Prevents XSS (Cross Site Scripting)
 - It is type-safe, and most of the errors can be found at compilation time.
 ---
-### Q3. {TitleComponent} vs {<TitleComponent/>} vs {<TitleComponent></TitleComponent>} in JSX?
+### Q3. {TitleComponent} vs {\<TitleComponent/>} vs {\<TitleComponent><\/TitleComponent>} in JSX?
 
 1. `{TitleComponent}`: This value describes the TitleComponent as a javascript expression or a variable. The {} can embed a javascript expression or a variable inside it.
 
