@@ -1,0 +1,31 @@
+
+body{
+    max-width: 1200px;
+    margin: auto;
+}
+.navbar{
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar [type="search"] {
+padding: 10px 20px;
+border-radius: 50px;
+border-width: 1px;
+margin-right: 10px;
+}
+.navbar [type="button"]{
+    padding: 10px 20px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 3px;
+    transition: .3s;
+    letter-spacing: 1px;
+}
+
+.navbar [type="button"]:hover{
+    background-color: black;
+    color: #e7e7e7;
+}
