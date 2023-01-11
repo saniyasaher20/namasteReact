@@ -1,0 +1,38 @@
+- React.createElement => Object => HTML (DOM)
+
+# PLUGINS
+
+- If you install a plugin where to see it. 
+    It will be inside package.json - configuration and version
+    node_modules - Code of plugin
+
+# BABEL REMOVE CONSOLE.LOG PLUIGN
+
+- babel comes along with parcel so we dont need to install babel.
+- babel-plugin-transform-remove-console
+    This will remove console.log from our code
+    Steps: 
+        - npm install babel-plugin-transform-remove-console --save-dev
+        - Its a babel plugin, we need to configure it. only installing wont work
+        - babelrc - recommended way. Create a file .babel.rc file in root folder. Its a configiration file. Write the folowing configuration in .babelrc
+        - {
+             "plugins": [ ["transform-remove-console", { "exclude": [ "error", "warn"] }] ]
+            }
+        - Build again and check the dist> index....js file. It works 👏
+
+# GENERAL
+
+- dist folder contains different version of temporary files. Whenever you create a new build, delete the dist folder first, good practice.
+- Always have to give keys to the children. Keys can be anything which uniquely identifies.
+- Why do we need a key? Whenever we have multiple children for e.g we have a list with two <li> tags. Now if we add a 3rd <li> to the end of the list, react will match the first two li and add the 3rd li in the last. But when we add 3rd li to the beginning of the list, react will not understand and re-render the whole element. KEYS solves this problem. This process of updating only the changed element is called reconciliation. React uses Diffing alogorithm to do reconciliation.
+
+- VIRTUAL DOM | new virtual dom | BROWSER DOM.
+whenever there is a change in an element. React create a new virtual dom and checks the difference between VIRTUAL DOM and new virtual dom using the diff alogorithm, we cans say it is similar to the git diff alogorithm. Afterwards react updates the BROWSER DOM .
+THIS PROCESS IS CALLED RECONCILIATION
+
+# JSX
+
+- JSX is NOT html inside javascript. It is HTML like syntax. it is a fancy n easy way of writing html in javascript.
+- how JSX works, go to https://babeljs.io/
+- JSX => React.createElement => Object => HTML DOM
+- 
