@@ -5,6 +5,7 @@ Q. Learn File structure from react official site
 - Uber has a rule to keep 200 lines per file. if there are more lines then we have to do something about it - Akshay
 - Component names must start with capital letter. e.g. Header, Title, etc. Why? Earlier react used to maintain a array of html tags ["div", "p", ...]. if we write a component name with small letter, react will assume that it is a html tag and not a component.
 - Header.js is same as Header.jsx. But some libraraies find it difficult to find .jsx extension. Good Practice is to write Header.js
+- no key (not acceptable) | index key (last option) | unique key (best practice)
 
 # EXPORT IMPORT
 
