@@ -1,0 +1,5 @@
+# CONFIG DRIVEN UI
+
+WHen you build a real world application, the UI should be dynamic. We control our frontend using config. It is called Config Driven UI. Who is driving the UI? Backend and API
+
+# OPTIONAL CHAINING
