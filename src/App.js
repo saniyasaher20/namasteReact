@@ -30,23 +30,25 @@ const Body = () => {
     return (
         <div className="container card-parent">
             {restaurantList.map((restaurant) => {
-                <RestaurantCard {...restaurant?.data?.data} />
+                return <RestaurantCard {...restaurant?.data?.data} key={ restaurant?.data?.data?.id} />
             })}
         </div>
     )
 }
 
-const RestaurantCard = ({ name }) => {
+const RestaurantCard = (
+    { name, cloudinaryImageId, cuisines, avgRating }
+) => {
     return (
         <div className="card">
-            <img src="https://th.bing.com/th/id/OIP.p-bnSeGKkQKkm7pFDV1HfwHaEo?pid=ImgDet&rs=1" alt="Food" />
+            <img src={"https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/" + cloudinaryImageId} alt="Food" />
             <div className="content">
                 <h2>{name}</h2>
-                {/* <p>{props.description}</p> */}
+                <p>{cuisines.join(", ")}</p>
                 <br />
                 <div className="rating">
                     <span>⭐</span>
-                    {/* <span>{props.rating}</span> */}
+                    <span>{avgRating}</span>
                 </div>
             </div>
         </div>
