@@ -115,7 +115,9 @@
     "yaml": "^1.10.2"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "repository": {
     "type": "git",

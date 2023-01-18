@@ -48,14 +48,20 @@ img {
 /* -------------------------------- FOOD CARD ------------------------------- */
 .container.card-parent {
     display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
     margin: 0 10%;
     justify-content: space-between;
+}
+.card:hover{
+    box-shadow: 0 0 10px 0 rgba(165, 0, 160, 0.3);
 }
 
 .card {
     width: 300px;
     border-radius: 20px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    transition: all .3s;
 }
 
 .card img {

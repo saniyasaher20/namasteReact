@@ -1,5 +1,41 @@
-# CONFIG DRIVEN UI
+- We need to keep UI in sync with our state. We use useState variable
+- Why react is fast? fast DOM manupulation. WHy fast DOM manupulation ? bcz of Diff algoritm
 
-WHen you build a real world application, the UI should be dynamic. We control our frontend using config. It is called Config Driven UI. Who is driving the UI? Backend and API
 
-# OPTIONAL CHAINING
+- Representation of real dom is Virtual DOM
+
+# DESTRUCTURING THE OBJECT INSTEAD OF props
+
+const ComponentProps = (props) => {
+    return (
+        <>
+            <p>{props.attr}</p>
+        </>
+    )
+} 
+<ComponentProps attr="xyz" >
+------------------------------------
+We can destructure the object and write instead of props.
+const ComponentProps = ({attr}) => { // destructuring the object
+    return (
+        <>
+            // <p>{props.attr}</p> // no need to write props now
+            <p>{attr}</p> 
+        </>
+    )
+} 
+<ComponentProps attr="xyz" >
+
+
+- instead of writing each prop individually , we can do something like This
+name={restaurant[1].data.name} // this is normal way
+{...restaurant[1].data} // using spread operator
+
+- Why we need Virtual DOM?
+Virtual DOM is a Representation of actual DOM, we need Virtual DOM for reconciliation.
+Reconciliation uses Diff algorithm, and diff algorithm finds out the difference between trees,  and will only re-render the specific portion of uor app which is found by diff algorithm.
+
+# React FIBER ? learn about it
+React changed the reconciliation method. React fibre is new reconcialiation engine and came in react 16. It is responsible for diff
+
+# We never have to use INDEX as a key. 
