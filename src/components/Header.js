@@ -1,28 +1,18 @@
-const Title = () => (
-    <a href="/">
-        <img
-            className="logo"
-            alt="logo"
-            src="https://yt3.ggpht.com/ytc/AMLnZu_EC-ECXAxRAixWGEfMsE1rdSoetBHyxmLNdtCB=s900-c-k-c0x00ffffff-no-rj"
-        />
-    </a>
-);
+export const Title = () => {
+    return <h1>FOOD VILLA</h1>;
+}
 
-const Header = () => {
+export const Header = () => {
     return (
-        <div className="header">
-            <Title />
-
-            <div className="nav-items">
-                <ul>
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Contact</li>
-                    <li>Cart</li>
-                </ul>
-            </div>
+        <div className="navbar">
+            <h3 className="logo"><Title /></h3>
+            <ul className="menu">
+                <li>Menu 1</li>
+                <li>Menu 2</li>
+                <li>Menu 3</li>
+            </ul>
+            <img src="https://th.bing.com/th/id/OIP.PR9rFODfsm9Rn_FdIGUO1wHaHa?pid=ImgDet&rs=1" alt="User" />
         </div>
     );
 };
 
-export default Header;
