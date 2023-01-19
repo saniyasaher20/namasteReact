@@ -1,11 +1,11 @@
 export const Title = () => {
-    return <h1>FOOD VILLA</h1>;
+    return <p>FOOD VILLA</p>;
 }
 
 export const Header = () => {
     return (
         <div className="navbar">
-            <h3 className="logo"><Title /></h3>
+            <h1 className="logo"><Title /></h1>
             <ul className="menu">
                 <li>Menu 1</li>
                 <li>Menu 2</li>

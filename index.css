@@ -1,0 +1,83 @@
+/* --------------------------------- GENERAL -------------------------------- */
+* :not(h1, h2, h3, h4, h5, h6) {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    width: 100%;
+    margin: auto;
+}
+
+.container {
+    padding: 50px 20px;
+}
+
+/* --------------------------------- NAVBAR --------------------------------- */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: #ffadad;
+}
+
+.navbar img {
+    margin: unset;
+}
+
+.navbar ul {
+    display: flex;
+}
+
+.navbar ul li {
+    list-style-type: none;
+    padding: 0 20px;
+    transition: .4s;
+    cursor: pointer;
+}
+
+.navbar ul li:hover {
+    color: rgb(144, 0, 0);
+}
+
+.navbar img {
+    width: 50px;
+}
+
+/* -------------------------------- FOOD CARD ------------------------------- */
+.container.card-parent {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 0 10%;
+    justify-content: space-between;
+}
+.card:hover{
+    box-shadow: 0 0 10px 0 rgba(165, 0, 160, 0.3);
+    cursor: pointer;
+}
+
+.card {
+    width: 300px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    transition: all .3s;
+}
+
+.card img {
+    border-radius: 20px 20px 0 0;
+
+}
+
+.card .content {
+    padding: 20px;
+}
+
+.card .rating {
+    background: green;
+    color: #fff;
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+}

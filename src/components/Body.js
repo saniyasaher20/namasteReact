@@ -1,10 +1,43 @@
+import { useState } from "react";
 import { restaurantList } from "../constants";
 
+
+function filterFn(searchTxt, restaurantVar) {
+    const filterData = restaurantVar.filter((restaurant) =>
+        restaurant.data?.data?.name.includes(searchTxt)
+    );
+    return filterData;
+}
+
 const Body = () => {
+    // const searchTxt = "KFC";
+    // searchTxt = local variable, setSearchTxt = fn which maintains the state of the local variable
+    const [restaurantVar, setRestaurantVar] = useState(restaurantList);
+    const [searchTxt, setSearchTxt] = useState("");
+
+
     return (
         <>
+            <div className="search-container">
+                <input type="search" name="search" id="search"
+                    value={searchTxt}
+                    onChange={(e) => {
+                        setSearchTxt(e.target.value)
+                    }}
+                    placeholder="Search...."
+                />
+                <button className="searchBtn" onClick={() => {
+                    // filter data
+                    const data = filterFn(searchTxt, restaurantVar);
+
+                    // update the state
+                    setRestaurantVar(data);
+                }}>
+                    Search
+                </button>
+            </div>
             <div className="container card-parent">
-                {restaurantList.map((restaurant) => {
+                {restaurantVar.map((restaurant) => {
                     return <RestaurantCard {...restaurant?.data?.data} key={restaurant?.data?.data?.id} />
                 })}
             </div>
