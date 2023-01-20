@@ -39,3 +39,81 @@ Reconciliation uses Diff algorithm, and diff algorithm finds out the difference 
 React changed the reconciliation method. React fibre is new reconcialiation engine and came in react 16. It is responsible for diff
 
 # We never have to use INDEX as a key. 
+
+# MICROSERVICES
+
+- old method, lets say we have a Java project, everything will be written in the same project.e.g. API, UI, SMS, notification, etc all code in one project  This is called MONOLITH.
+
+- instead of having one big project we divide the project into different apps. This is called Microservice Architecture.
+Easier to test, 
+Easy to maintain
+We can separate each microservice. this is called separation of concern/single responsibility.  
+How this different microservice apps are connected? 
+swiggy.com port number 3000 is mapped to UI
+swiggy.com:3000 -> /
+          :4000 -> /dapi
+          : ... -> ...  
+____________________________________________
+
+# useEffect
+
+- comes from react library. its a hook, a js fn
+    import {useEffect} from "react"; //its named import just like useState
+
+- useEffect(callback fn, dependency array)
+- useEffect(  ()=>{}   ,   []    )
+- This callback fn will be called , not immediately but whenever my useEffect wants it to be called. And react will make sure that useEffect call the 'call back fn' on a specific time.
+
+- WHen component re-renders? 
+    1. State changes
+    2. PRops changes
+
+- If I dont give the second parameter, the dependency array, It will be called on each re render.
+- if we give empty dependency array []. It will be called only once
+- if we give [someVariable], then callback fn will be called only when 'someVariable' has some changes.
+`````
+    console.log("Before useEffect")
+
+    useEffect(
+        () => { console.log("This is useEffect") }
+        , []
+    );
+    console.log("After useEffect")
+`````
+OUTPUT:
+Before useEffect
+After useEffect
+This is useEffect
+
+- EMPTY DEPENDENCY ARRAY =  once after initial render
+- dep arr [someVariable] = once after initial render + everytime after re-render (my someVariable changes)
+
+____________________________________________
+
+# `Unhandled Rejection (TypeError): Failed to fetch` getting this error while trying to fetch swiggy app. THis is because our BROWSER stopping us from accessing API from localhost url. SOLUTION: Install this `Allow CORS: Access-Control-Allow-Origin` browser extension
+____________________________________________
+
+# FLOW OF EXECUTION 
+
+Loads page with initial data -->> 
+Render -->> 
+API call -->> 
+Update the UI with API data -->>
+Re-render
+
+____________________________________________
+
+# CONDIITONAL RENDERING
+
+    return (allRestaurants.length === 0) ? <Shimmer /> : (    )
+____________________________________________
+
+# AVOID RENDERING COMPONENT
+
+- Early return/not render component = If i dont have a component then don't render it. we need to write a if statement before `return` bcz `return` contains the JSX means rendering will happen bcz of return. In short. we need to write if statement before the render code.
+ 
+   const Component = () => {
+        if(!allRestaurants) return null; // early return
+        return ();
+    }
+    
