@@ -80,3 +80,9 @@ img {
     padding: 3px 8px;
     border-radius: 3px;
 }
+
+.shimmer{
+    background-color: #e7e7e7;
+    height: 300px;
+    width: 300px;
+}

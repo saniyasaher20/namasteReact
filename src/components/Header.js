@@ -7,9 +7,9 @@ export const Header = () => {
         <div className="navbar">
             <h1 className="logo"><Title /></h1>
             <ul className="menu">
-                <li>Menu 1</li>
-                <li>Menu 2</li>
-                <li>Menu 3</li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
             </ul>
             <img src="https://th.bing.com/th/id/OIP.PR9rFODfsm9Rn_FdIGUO1wHaHa?pid=ImgDet&rs=1" alt="User" />
         </div>
