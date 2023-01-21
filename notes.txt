@@ -56,9 +56,8 @@ swiggy.com:3000 -> /
 ____________________________________________
 
 # useEffect
-
-- comes from react library. its a hook, a js fn
-    import {useEffect} from "react"; //its named import just like useState
+- What is useEffect? Its a hook react gives us, it is called after our component is rendered
+     import {useEffect} from "react"; //its named import just like useState
 
 - useEffect(callback fn, dependency array)
 - useEffect(  ()=>{}   ,   []    )
@@ -68,7 +67,7 @@ ____________________________________________
     1. State changes
     2. PRops changes
 
-- If I dont give the second parameter, the dependency array, It will be called on each re render.
+- If I dont give the second parameter(the dependency array). Means it is not dependent on anything and default behavior of useEffect is to be called after render. So It will be called on each re render.
 - if we give empty dependency array []. It will be called only once
 - if we give [someVariable], then callback fn will be called only when 'someVariable' has some changes.
 `````
@@ -83,11 +82,13 @@ ____________________________________________
 OUTPUT:
 Before useEffect
 After useEffect
-This is useEffect
+This is useEffect (bcz useEffect is called after render)
 
 - EMPTY DEPENDENCY ARRAY =  once after initial render
 - dep arr [someVariable] = once after initial render + everytime after re-render (my someVariable changes)
 
+
+Can i create many useEffect ? yes
 ____________________________________________
 
 # `Unhandled Rejection (TypeError): Failed to fetch` getting this error while trying to fetch swiggy app. THis is because our BROWSER stopping us from accessing API from localhost url. SOLUTION: Install this `Allow CORS: Access-Control-Allow-Origin` browser extension
@@ -116,4 +117,22 @@ ____________________________________________
         if(!allRestaurants) return null; // early return
         return ();
     }
-    
+____________________________________________    
+
+# IMPORTANT POINTS
+
+- Never create a component inside another component. We can call or nest one component inside another.
+
+    const Component1 = () => {
+        const Component2 = () => { return <p>This is C2</p>}       // DON'T DO LIKE THIS 
+        return <p>This is C1</p>
+    }
+
+- Never write useState inside if statement and for loop. 
+- Why not in if statement? useState creates its own local variable and react doesnt like inconsistencies, if we put something inside if statement then react won't knows that such variable exist or not. e.g
+    if() {
+        const [searchTxt, setSearchTxt] = useState("")
+    }
+
+- Never create useState outside functional component. 
+- Always create useState inside component before return()
