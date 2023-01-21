@@ -24,3 +24,13 @@
 - RouterProvider is a component provided by react-router-dom. It is used to tell our app about the router.
     
     root.render( <RouterProvider router={appRouter} /> )
+
+
+- problem with anchor tag is that it refreshes the whole page, so instead of giving anchor tag to links, use the following: 
+    import {Link} from "react-router-dom"
+
+    <Link to="/about"> About </Link> 
+
+- TWO TYPES OF ROUTING
+    1. CLient side routing : 
+    2. Server side routing : All our pages comes from server

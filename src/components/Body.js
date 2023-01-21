@@ -1,7 +1,8 @@
 import { restaurantList } from "../constants";
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
-import Shimmer from "./Shimmer"
+import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 function filterFn(searchTxt, filteredRestaurants) {
     const filterData = filteredRestaurants.filter((restaurant) =>
@@ -47,7 +48,7 @@ const Body = () => {
                     }} />
                 <button onClick={() => {
                     const data = filterFn(searchTxt, allRestaurants);
-                    (data?.length === 0) ?  document.getElementById("err").innerHTML = "<h1>No Restaurants Found. Search Again😥</h1>"
+                    (data?.length === 0) ? document.getElementById("err").innerHTML = "<h1>No Restaurants Found. Search Again😥</h1>"
                         :
                         setFilteredRestaurants(data)
                         ;
@@ -61,7 +62,11 @@ const Body = () => {
             <div className="container card-parent" id="card-parent">
                 {
                     filteredRestaurants.map((restaurant) => {
-                        return <RestaurantCard {...restaurant?.data} key={restaurant?.data?.id} />
+                        return <Link
+                            to={"/restaurant/" + restaurant?.data?.id}
+                            key={"/restaurant/" + restaurant?.data?.id}>
+                            <RestaurantCard {...restaurant?.data} key={restaurant?.data?.id} />
+                        </Link>
                     })
                 }
             </div>
