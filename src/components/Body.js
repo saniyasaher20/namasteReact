@@ -1,8 +1,9 @@
-import { restaurantList } from "../constants";
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+
+
 
 function filterFn(searchTxt, filteredRestaurants) {
     const filterData = filteredRestaurants.filter((restaurant) =>
@@ -16,6 +17,7 @@ const Body = () => {
     const [allRestaurants, setAllRestaurants] = useState([]);
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
 
+    console.log(useState())
     // useEffect(
     //     () => { console.log("This is useEffect") }
     //     , [filteredRestaurants]
