@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { Header } from "./components/Header";
 import Body from "./components/Body";
@@ -7,6 +7,7 @@ import Error from "./components/Error";
 import Contact from "./components/Contact";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+
 
 const AppLayout = () => {
     return (
@@ -17,6 +18,8 @@ const AppLayout = () => {
     );
 };
 
+
+const Instamart = lazy(() => import("./components/Instamart"));
 
 // Routing
 // always create it after Applayout. It won't work if create it before component.
@@ -41,7 +44,16 @@ const appRouter = createBrowserRouter([
             {
                 path: "/restaurant/:id",
                 element: <RestaurantMenu />
+            },
+            {
+                path: "/instamart",
+                element: (
+                    <Suspense>
+                        <Instamart />
+                    </Suspense>
+                )
             }
+
         ]
     },
 

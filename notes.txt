@@ -1,36 +1,88 @@
-# ROUTER
-- npm i react-router-dom
-- import {createBrowserRouter} from "react-router-dom"   // in App.js
-1- createBrowserRouter is a component provided by react-router-dom. It is used for creating the router. It will decide what will happen on path:"/xyz". It takes a array, and array takes the paths in object form. 
-    createBrowserRouter(  [   {}, {}, ...  ]  )
-- always create it after Applayout. It won't work if create it before component.
+CHAPTER 9
+___________________________________________________
+___________________________________________________
 
-    //Creating a router. 
-    const appRouter = createBrowserRouter([
-        {
-            path: "/",
-            element: <AppLayout /> // AppLayout will loaded on "/"
-        },
-        {
-            path: "/about",
-            element: <About />
-        }
-    ]);
+# GENERAL TIPS
 
-2- We created the appRouter, second step to provide this router to our app
+- "NEVER EVER DYNAMICALLY LOAD A COMPONENT INSIDE ANOTHER COMPONENT" - Akshay
 
-- import { createBrowserRouter, RouterProvider } from "react-router-dom"   // in App.js
+- Big websites have so many components, if our bundler combine/compress all components's code into one .js file, then it will be a huge file and our app will slow down. 
+Bundling is good but upto a limit, we shouldn't bundle evrything into one file. 
+We should make logical bundles of our code. It is called `CHUNKING`. 
+ 
+( CHUNKING /
+  CODE SPLITTING / 
+  DYNAMIC BUNDLING / 
+  LAZY LOADING /
+  ON DEMAND LOADING /
+  DYNAMIC IMPORT
+)
 
-- RouterProvider is a component provided by react-router-dom. It is used to tell our app about the router.
+- Shimmer won't work if we put empty object in the useState. 
+        useState({})    ❌ for shimmer
+        useState(null)  ✅ shimmer will work
+
+- Whenever you create addEventListener, clear it . otherwise brower will keep it and even if you go some other page it will keep that event in bg.
+To remove a event Listener, add the same function name you used when adding the event Listener.
+
+    ` window.removeEventListener( "online", sameFunctionName() ) `
+
+Remember you can't write the code directly instead of function name. You need to create a function outside addEventListener and that function name in addEventListener and removeEventListener also.
     
-    root.render( <RouterProvider router={appRouter} /> )
+___________________________________________________
+
+# TWO PHASES OF REACT
+  
+    1. RENDER PHASE :  Everytime you load a component MOUNTING happen. UPDATING happen when there is state change or prop changes or on force update, otherwise zero/no UPDATING happen.  
+    2. COMMIT PHASE
+____________________________________________________
+
+# BUILD OUR OWN HOOK
+
+- TIPS: 
+    - Always start hook name with `use`. It's react's way to understand that its a hook.
+
+- WHY BUILD OUR OWN HOOK?
+
+    - We need FUNCTIONS OR HOOKS for the following reasons:
+        For Reusability, Readability, Modularity(if we have broken our code onto meaningfull smaller chunks is called modular code), separation of concerns, testable(I dont need to test the whole app, i can test a small logic also), maintanable(easy to debug)
+    
+    - Why we create a fn in JS? we can wrap-up a small logic inside a function and re-use it anywhere.
+    
+    - Whenever you create a reusable function. there should 
+    be a common place where you keep all utilities function. Make a folder "utils/shared/common" in src folder. Make a helper.js in it and keep utilities fn here.
+        import { filterData } from "../utils/helper";
+___________________________________________________
+
+# CHUNKING / CODE SPLITTING / DYNAMIC BUNDLING / LAZY LOADING / ON DEMAND LOADING / ON DEMAND IMPORT / DYNAMIC IMPORT
+
+- Where do chunking? Wherever you have a route, wherever you have a import for the Component, there you have to do CHUNKING.
+- e.g. 
+        lazy comes from "react" as a named import.
+            import {lazy} from "react"; 
+
+    ❌    import Instamart from "./components/Instamart";
+
+    ✅    const Instamart = lazy(    () => import("./components/Instamart")    )
+    //lazy fn takes a callback fn. 
+    // this is lazy import. the import statement is a promise. So react will wait till the promise resolved until it loads the component
+
+- Whenever you load Instamart, it takes some time to load. Meanwhile react tries to render it, but it is not there till now, it's still loading, Means react is trying to load somehting which is not there. In this process, react suspends it.
+ "WHEN YOU ARE LOADING YOUR COMPONENT ON DEMAND, REACT TRIES TO SUSPEND IT" - Akshay
+
+- Upon ON DEMAND loading -->> upon render -->> suspend loading (bcz the code is not there)
+
+- To handle this case we use `Suspense`. It is a named import from react. It has a optional attribute `fallback`. We can show shimmer or anything until the component loads.
+            
+
+            import { Suspense } from "react";
+
+            <Suspense fallback={<Shimmer />}>
+                <Instamart />
+            </Suspense>
 
 
-- problem with anchor tag is that it refreshes the whole page, so instead of giving anchor tag to links, use the following: 
-    import {Link} from "react-router-dom"
+- "NEVER EVER DYNAMICALLY LOAD A COMPONENT INSIDE ANOTHER COMPONENT" - Akshay
+   bcz it will lazy load after each render of the parent component, it is not good.
 
-    <Link to="/about"> About </Link> 
-
-- TWO TYPES OF ROUTING
-    1. CLient side routing : 
-    2. Server side routing : All our pages comes from server
+- Always lazy load in the top of the page, where we write the imports, just after that write the lazy imports also.

@@ -11,6 +11,7 @@ export const Header = () => {
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/about">About</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
+                <li><Link to="/instamart">Instamart</Link></li>
             </ul>
             <img src="https://th.bing.com/th/id/OIP.PR9rFODfsm9Rn_FdIGUO1wHaHa?pid=ImgDet&rs=1" alt="User" />
         </div>

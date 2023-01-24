@@ -2,7 +2,7 @@ import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-
+import useOnline from "../utils/useOnline";
 
 
 function filterFn(searchTxt, filteredRestaurants) {
@@ -38,7 +38,14 @@ const Body = () => {
         setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards)
     }
 
-    if (!allRestaurants) return null; // early return (component will not render)
+    // Check whether a user is online
+    const online = useOnline();
+    if (!online) {
+        return <h1>🔴 Please check your internet connection</h1>
+    }
+
+    // early return (component will not render)
+    if (!allRestaurants) return null;
 
     return (allRestaurants.length === 0) ? <Shimmer /> : (
         <>
