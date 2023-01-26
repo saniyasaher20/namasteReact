@@ -1,36 +1,50 @@
-# CHAPTER 6
+# CHAPTER 9
 ---
 
-### Q1. What are various ways to add images into our app? Explain with example?
-1. import <any_name> from 'path_to_img'
-		use - <img src={any_name}/>
-2. import * as <any_name> from 'path_to_img'
-		use - <img src={any_name.name-of-image}/>
-3. Or we can use directly in img Jsx as below
-		use - <img src = {require('path_to_img')} />
-4. Import {<any_name> as ReactComponent} from 'path_to_img'
-		use - <img src={any_name}/>
----
-### Q2. What would happen if we do console.log(useState())?
-- `console.log(useState())` It will have 2 values like this `(2) [undefined, ƒ]`
-- `console.log(useState("Default value here"))` It will have 2 values like this `(2) ["Default value here", ƒ]`
----
-### Q3. How will useEffect behave if don't add a dependency array?
-If we don't add a dependency array to useEffect Hook, then it will follow its default behaiviour. It will call the callBack fn passed to it on each render. Everytime something changes (either props or state) re-render of the component happens and useEffect will call the callBack fn. 
+### Q1. When and why do we need lazy()?
+- When we have a complex or big code app, we should split the code into logical bundles. This process is called CHUNKING / CODE SPLITTING / DYNAMIC BUNDLING / LAZY LOADING / ON DEMAND LOADING / ON DEMAND IMPORT / DYNAMIC IMPORT.
 
-- If I dont give the second parameter(the dependency array). Means it is not dependent on anything and default behavior of useEffect is to be called after render. So It will be called on each re-render.
-- if we give empty dependency array []. It will be called only once
-- if we give [someVariable], then callback fn will be called only when 'someVariable' has some changes.
+- With the help of React.lazy function we can do Chunking.
+
+- React.lazy takes a function that must call a dynamic import(). This must return a Promise which resolves to a module with a default export containing a React component
+```jsx
+import {lazy} from "react"; 
+
+//import Instamart from "./components/Instamart"; // Normal import
+const AnyComponent = lazy(    () => import("./components/AnyComponent")    ) // Lazy import
+```
 ---
-### Q4. What is SPA?
-SPA stands for single page application. SPA is a implemention of web application that loads a single web document and updates the content without reloading everytime.
+### Q2. What is Suspense? When to use it? and Why ?
+- The lazy component should be rendered inside a Suspense component, which allows us to show some fallback content (such as a loading indicator) while we’re waiting for the lazy component to load.
+
+- When we load AnyComponent using Lazy import, It takes some time to load the code, but react tries to render it immediately. Since react unable to find the code, it suspends it and shows error.
+
+- "When you are loading a component ON DEMAND, React tries to suspend it". To handle this error we need `React.Suspense`
+
+```jsx
+import { Suspense } from "react";
+
+<Suspense fallback={"Shimmer or loading spinner or simple Loading text"}>
+    <AnyComponent />
+</Suspense>
+```
+
+- If we dont want to show the Shimmer/loading component in the meantime when lazy component is loading. We can use startTransition to Avoid fallbacks. [Docs]("https://reactjs.org/docs/code-splitting.html#avoiding-fallbacks")
 ---
-### Q5 - What is the differnce between Client side routing and Server side routing?
-1. CLient side routing : It loads pages from client side.
-2. Server side routing : All our pages comes from server.
-                        In Server side routing , when a user click on a link then browser makes an http request for that page on server now server process the request and send a response usually a html page, now bowser discard the 	old page and loads the new page.
+### Q3. Why we got this error : A component suspended while responding to synchronous input. This will cause the UI to be replaced with a loading indicator. To fix, updates that suspend should be wrapped with startTransition? How does suspense fix this error?
+- There are sometimes when component under suspense takes some time to render, but we also don't want to show loader or the fallback component then we can tell react to show the old component only and render the new one when its ready using `startTransition` method.
+
+- React 18 introduces a new concurrent feature called transitions. You can mark updates as transitions, which tells React that they can be interrupted and avoid going back to Suspense fallbacks.
+```jsx
+// React.startTransition(callback)
+import { useTransition, startTransition } from 'react';
+
+const [isPending, startTransition] = useTransition();
+
+startTransition( () => {
+//some code which we want to set as low priority
+						}  
+				)
+```
 ---
-## Resources Given:
-1. React Router DOM - https://reactrouter.com/en/main
-2. Client Side Routing - https://reactrouter.com/en/main/start/overview
-3. Formik - https://formik.org/
+### Q4. Advantages or disadvantages of code splitting?

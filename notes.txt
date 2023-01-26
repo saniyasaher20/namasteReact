@@ -6,18 +6,6 @@ ___________________________________________________
 
 - "NEVER EVER DYNAMICALLY LOAD A COMPONENT INSIDE ANOTHER COMPONENT" - Akshay
 
-- Big websites have so many components, if our bundler combine/compress all components's code into one .js file, then it will be a huge file and our app will slow down. 
-Bundling is good but upto a limit, we shouldn't bundle evrything into one file. 
-We should make logical bundles of our code. It is called `CHUNKING`. 
- 
-( CHUNKING /
-  CODE SPLITTING / 
-  DYNAMIC BUNDLING / 
-  LAZY LOADING /
-  ON DEMAND LOADING /
-  DYNAMIC IMPORT
-)
-
 - Shimmer won't work if we put empty object in the useState. 
         useState({})    ❌ for shimmer
         useState(null)  ✅ shimmer will work
@@ -29,6 +17,11 @@ To remove a event Listener, add the same function name you used when adding the 
 
 Remember you can't write the code directly instead of function name. You need to create a function outside addEventListener and that function name in addEventListener and removeEventListener also.
     
+- What is Batching? Multiple state updates in a single re-render. 
+    Benefits of Batching: 
+        Avoids unnecessary re-renders
+        Prevents half-finished renders
+                
 ___________________________________________________
 
 # TWO PHASES OF REACT
@@ -55,6 +48,18 @@ ____________________________________________________
 ___________________________________________________
 
 # CHUNKING / CODE SPLITTING / DYNAMIC BUNDLING / LAZY LOADING / ON DEMAND LOADING / ON DEMAND IMPORT / DYNAMIC IMPORT
+
+- Why do Chunking? Big websites have so many components, if our bundler combine/compress all components's code into one .js file, then it will be a huge file and our app will slow down. 
+Bundling is good but upto a limit, we shouldn't bundle evrything into one file. 
+We should make logical bundles of our code. It is called `CHUNKING`. 
+ 
+( CHUNKING /
+  CODE SPLITTING / 
+  DYNAMIC BUNDLING / 
+  LAZY LOADING /
+  ON DEMAND LOADING /
+  DYNAMIC IMPORT
+)
 
 - Where do chunking? Wherever you have a route, wherever you have a import for the Component, there you have to do CHUNKING.
 - e.g. 
@@ -86,3 +91,23 @@ ___________________________________________________
    bcz it will lazy load after each render of the parent component, it is not good.
 
 - Always lazy load in the top of the page, where we write the imports, just after that write the lazy imports also.
+
+---
+# startTransition = pausing non-urgent updates
+
+import { useTransition, startTransition } from 'react';
+
+- useTransition is a hook and used with functional components. startTransition is a function used with class components
+- By default, everything is on high priority in react. One task finishes and then another renders.
+- Why use startTransition? When we render any expensive and huge UI, it takes some time to load, and it blocks some more important and urgent UI renders. We can avoid this problem using `debouncing or throttling` but it can still cause our app to become unresponsive.
+- React 18 gives us a feature `startTransition`. 
+- startTransition allows you to mark certain updates in the app as non-urgent, so they are paused while the more urgent updates are prioritized. This makes your app feel faster, and can reduce the burden of rendering items in your app that are not strictly necessary.
+    
+    import { useTransition } from 'react';
+
+    const [isPending, startTransition] = useTransition();
+
+    startTransition( () => {
+                                //some code which we want to set as low priority
+                           }  
+                    )
