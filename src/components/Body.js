@@ -68,7 +68,7 @@ const Body = () => {
                 <span id="err"></span>
             </div>
 
-            <div className="container card-parent" id="card-parent">
+            <div className="container card-parent flex justify-between flex-wrap" id="card-parent">
                 {
                     filteredRestaurants.map((restaurant) => {
                         return <Link

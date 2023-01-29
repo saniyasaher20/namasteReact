@@ -3,8 +3,8 @@ import {IMG_CDN_URL} from "../constants"
 const RestaurantCard = ({ name, cuisines, cloudinaryImageId, avgRating }) => {
     // const { cloudinaryImageId, name, cuisines, avgRating } = restaurant.data?.data;
     return (
-        <div className="card">
-            <img className="img-fluid" src={
+        <div className="card w-60 shadow-md p-5">
+            <img className="img-fluid " src={
                 IMG_CDN_URL + cloudinaryImageId
             } alt="Food" loading="lazy" />
             <div className="content">

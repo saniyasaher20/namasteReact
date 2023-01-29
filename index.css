@@ -1,5 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* --------------------------------- GENERAL -------------------------------- */
-* :not(h1, h2, h3, h4, h5, h6) {
+/* * :not(h1, h2, h3, h4, h5, h6) {
     margin: 0;
     padding: 0;
 }
@@ -11,10 +14,10 @@
 
 .container {
     padding: 50px 20px;
-}
+} */
 
 /* --------------------------------- NAVBAR --------------------------------- */
-.navbar {
+/* .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -43,10 +46,10 @@
 
 .navbar img {
     width: 50px;
-}
+} */
 
 /* -------------------------------- FOOD CARD ------------------------------- */
-.container.card-parent {
+/* .container.card-parent {
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
@@ -85,4 +88,4 @@
     background-color: #e7e7e7;
     height: 300px;
     width: 300px;
-}
+} */

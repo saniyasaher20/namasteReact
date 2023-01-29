@@ -1,113 +1,68 @@
-CHAPTER 9
-___________________________________________________
-___________________________________________________
-
-# GENERAL TIPS
-
-- "NEVER EVER DYNAMICALLY LOAD A COMPONENT INSIDE ANOTHER COMPONENT" - Akshay
-
-- Shimmer won't work if we put empty object in the useState. 
-        useState({})    ❌ for shimmer
-        useState(null)  ✅ shimmer will work
-
-- Whenever you create addEventListener, clear it . otherwise brower will keep it and even if you go some other page it will keep that event in bg.
-To remove a event Listener, add the same function name you used when adding the event Listener.
-
-    ` window.removeEventListener( "online", sameFunctionName() ) `
-
-Remember you can't write the code directly instead of function name. You need to create a function outside addEventListener and that function name in addEventListener and removeEventListener also.
-    
-- What is Batching? Multiple state updates in a single re-render. 
-    Benefits of Batching: 
-        Avoids unnecessary re-renders
-        Prevents half-finished renders
-                
+CHAPTER 10
 ___________________________________________________
 
-# TWO PHASES OF REACT
-  
-    1. RENDER PHASE :  Everytime you load a component MOUNTING happen. UPDATING happen when there is state change or prop changes or on force update, otherwise zero/no UPDATING happen.  
-    2. COMMIT PHASE
-____________________________________________________
+1. Inline CSS: style attribute takes an object. First curly braces for writing JS, and second one is for creating object.
+    style={{ ... }}
 
-# BUILD OUR OWN HOOK
+2. Create a variable: 
+    const red = {
+        backgroundColor: red;
+    }
+    style={{red}}
 
-- TIPS: 
-    - Always start hook name with `use`. It's react's way to understand that its a hook.
+3. External File. index.css and link it to index.html using link tag
 
-- WHY BUILD OUR OWN HOOK?
+4. Styled Components: https://styled-components.com/
+There is a learning curve. Difficult to learn and use.
 
-    - We need FUNCTIONS OR HOOKS for the following reasons:
-        For Reusability, Readability, Modularity(if we have broken our code onto meaningfull smaller chunks is called modular code), separation of concerns, testable(I dont need to test the whole app, i can test a small logic also), maintanable(easy to debug)
-    
-    - Why we create a fn in JS? we can wrap-up a small logic inside a function and re-use it anywhere.
-    
-    - Whenever you create a reusable function. there should 
-    be a common place where you keep all utilities function. Make a folder "utils/shared/common" in src folder. Make a helper.js in it and keep utilities fn here.
-        import { filterData } from "../utils/helper";
+5. Use libraries: Material UI, Base UI, Bootstrap, Tailwaind CSS, ANT , Chakra UI
+
 ___________________________________________________
 
-# CHUNKING / CODE SPLITTING / DYNAMIC BUNDLING / LAZY LOADING / ON DEMAND LOADING / ON DEMAND IMPORT / DYNAMIC IMPORT
+# PROS OF USING TAILWIND
 
-- Why do Chunking? Big websites have so many components, if our bundler combine/compress all components's code into one .js file, then it will be a huge file and our app will slow down. 
-Bundling is good but upto a limit, we shouldn't bundle evrything into one file. 
-We should make logical bundles of our code. It is called `CHUNKING`. 
- 
-( CHUNKING /
-  CODE SPLITTING / 
-  DYNAMIC BUNDLING / 
-  LAZY LOADING /
-  ON DEMAND LOADING /
-  DYNAMIC IMPORT
-)
+- Consistency
+- Reusability
+- Maintanable
+- Faster code
+- Unused CSS removed
 
-- Where do chunking? Wherever you have a route, wherever you have a import for the Component, there you have to do CHUNKING.
-- e.g. 
-        lazy comes from "react" as a named import.
-            import {lazy} from "react"; 
+# CONS OF USING TAILWIND
 
-    ❌    import Instamart from "./components/Instamart";
+- Initial learning curve
 
-    ✅    const Instamart = lazy(    () => import("./components/Instamart")    )
-    //lazy fn takes a callback fn. 
-    // this is lazy import. the import statement is a promise. So react will wait till the promise resolved until it loads the component
+___________________________________________________
 
-- Whenever you load Instamart, it takes some time to load. Meanwhile react tries to render it, but it is not there till now, it's still loading, Means react is trying to load somehting which is not there. In this process, react suspends it.
- "WHEN YOU ARE LOADING YOUR COMPONENT ON DEMAND, REACT TRIES TO SUSPEND IT" - Akshay
+# TAILWIND
 
-- Upon ON DEMAND loading -->> upon render -->> suspend loading (bcz the code is not there)
+- CSS on the go (in the same file)
+- Reusability
+- Less bundle size
+- Flexible UI = very much customizable
 
-- To handle this case we use `Suspense`. It is a named import from react. It has a optional attribute `fallback`. We can show shimmer or anything until the component loads.
-            
+# INSTALLATION
 
-            import { Suspense } from "react";
-
-            <Suspense fallback={<Shimmer />}>
-                <Instamart />
-            </Suspense>
+   $ npm i -D tailwindcss  postcss
+   $ npx tailwindcss init
 
 
-- "NEVER EVER DYNAMICALLY LOAD A COMPONENT INSIDE ANOTHER COMPONENT" - Akshay
-   bcz it will lazy load after each render of the parent component, it is not good.
+# .postcssrc
 
-- Always lazy load in the top of the page, where we write the imports, just after that write the lazy imports also.
+Create a .postcssrc file in your project root, and enable the tailwindcss plugin.
+    {
+        "plugins": {
+            "tailwindcss": {}
+        }
+    }
 
----
-# startTransition = pausing non-urgent updates
+# HOW TO USE IT?
 
-import { useTransition, startTransition } from 'react';
+- Write this on top of index.css
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
 
-- useTransition is a hook and used with functional components. startTransition is a function used with class components
-- By default, everything is on high priority in react. One task finishes and then another renders.
-- Why use startTransition? When we render any expensive and huge UI, it takes some time to load, and it blocks some more important and urgent UI renders. We can avoid this problem using `debouncing or throttling` but it can still cause our app to become unresponsive.
-- React 18 gives us a feature `startTransition`. 
-- startTransition allows you to mark certain updates in the app as non-urgent, so they are paused while the more urgent updates are prioritized. This makes your app feel faster, and can reduce the burden of rendering items in your app that are not strictly necessary.
-    
-    import { useTransition } from 'react';
 
-    const [isPending, startTransition] = useTransition();
-
-    startTransition( () => {
-                                //some code which we want to set as low priority
-                           }  
-                    )
+# SQUARE BRACKET NOTATION
+     we don't have 200px predefined class in tailwind, so we will use square bracket notation.
+     class="w-[200px]"
