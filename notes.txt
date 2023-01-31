@@ -1,68 +1,94 @@
-CHAPTER 10
+CHAPTER 11
 ___________________________________________________
 
-1. Inline CSS: style attribute takes an object. First curly braces for writing JS, and second one is for creating object.
-    style={{ ... }}
+# GENERAL
 
-2. Create a variable: 
-    const red = {
-        backgroundColor: red;
+jsx is converted into a big object which is called Virtual DOM.
+Two virtaul DOM compares using diff algorithm and reconcialiation happen nad he changes merged into actual DOM.
+
+- There are data layer and UI layer.
+
+- SUppose we have a container and we have a variable have access inside that container.
+- To pass data from one component to another component we use props
+___________________________________________________
+
+# PROPS DRILLING (Parent to child)
+
+- To pass a state variable from one component to another we pass it as a chain from parent to child.  for e.g.
+- Suppose you have a data in your parent and you want to access that data in grandchildren then you pass the data to child then to grandchild is called prop drilling
+        AppLayout
+        (state = user)
+
+                <Body user={user} />
+                     <RestaurantCard user={user} />
+                        <p> {user} </p>
+
+- In the above example the body component is not even using the user but stil it has the prop just to pass to restaurantCard.
+- It is good if you want to pass data from 2 or 3 levels but if there are more than 10 levels of childs then using props drilling is not a good way. 
+___________________________________________________
+
+# STATE LIFTING / LIFTING THE STATE UP (DATA FORM CHILD TO PARENT)
+
+- LIFTING THE STATE UP : we take the responsibility/stateControl from child and give it to the parent is called lifting the state up.
+- Suppose in a accordian you want to show a sibling and hide other sibling. So instead of each child has his own state we will create a state and parent will handle the single state. 
+
+- to pass data from child to parent , pass the setIsVisible to the parent as a prop
+
+    ParentComponent({setIsVisible})
+
+    <Child 
+
+___________________________________________________
+
+# useContext (shared data, we can use all over our app, anywhere)
+
+- It is a hook. Hook is a function at the end of the day
+- Good practice : create a different context for each thing, MyContext, etc.
+- Steps to use :
+---------------------------------------
+    // MyContext.js
+    import { createContext } from "react";
+
+    const MyContext = createContext({
+        user: {
+            name: "Saniya Saher",
+            email: "abc@gmail.com"
+        }
+    });
+
+    MyContext.displayName = "MyContext (AnyName Here)"; // this name will be shown on the ReactDev tools for debugging purpose only.
+
+    export default MyContext;
+---------------------------------------
+    // Header.js
+    import { createContext } from "react";
+    import MyContext from "../utils/MyContext"
+
+    const Header = () => {
+        const {user} = useContext(MyContext)
+
+        <p> {user} </p>
     }
-    style={{red}}
+--------------------------------------------
+- useContext is like useState for whole of your big application
 
-3. External File. index.css and link it to index.html using link tag
+- Overwrite default value:
 
-4. Styled Components: https://styled-components.com/
-There is a learning curve. Difficult to learn and use.
+    <MyContext.Provider 
+        value={{user:user}}
+    >
 
-5. Use libraries: Material UI, Base UI, Bootstrap, Tailwaind CSS, ANT , Chakra UI
+    </MyContext.Provider>
 
-___________________________________________________
+IN CLASS BASED COMPONENTS
+- we dont have hook useContext(), so we have to use it as a component.
 
-# PROS OF USING TAILWIND
-
-- Consistency
-- Reusability
-- Maintanable
-- Faster code
-- Unused CSS removed
-
-# CONS OF USING TAILWIND
-
-- Initial learning curve
-
-___________________________________________________
-
-# TAILWIND
-
-- CSS on the go (in the same file)
-- Reusability
-- Less bundle size
-- Flexible UI = very much customizable
-
-# INSTALLATION
-
-   $ npm i -D tailwindcss  postcss
-   $ npx tailwindcss init
-
-
-# .postcssrc
-
-Create a .postcssrc file in your project root, and enable the tailwindcss plugin.
-    {
-        "plugins": {
-            "tailwindcss": {}
+    class About extends React.Component {
+        render(){
+            return(
+                <MyContext.Consumer>
+                    {  ({user}) =>  <p> {user.name} </p>  }
+                </MyContext.Consumer>
+            )
         }
     }
-
-# HOW TO USE IT?
-
-- Write this on top of index.css
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
-
-
-# SQUARE BRACKET NOTATION
-     we don't have 200px predefined class in tailwind, so we will use square bracket notation.
-     class="w-[200px]"
