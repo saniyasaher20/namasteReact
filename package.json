@@ -2,6 +2,7 @@
   "homepage": "https://saniyasaher20.github.io/namasteReact/",
   "name": "namastereact",
   "version": "1.0.0",
+  "main": "src/App.js",
   "description": "",
   "dependencies": {
     "abortcontroller-polyfill": "^1.7.5",
