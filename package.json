@@ -1,4 +1,5 @@
 {
+  "homepage": "https://saniyasaher20.github.io/namasteReact/",
   "name": "namastereact",
   "version": "1.0.0",
   "description": "",
@@ -189,7 +190,8 @@
   "scripts": {
     "test": "jest",
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -200,7 +202,6 @@
   "bugs": {
     "url": "https://github.com/saniyasaher20/namasteReact/issues"
   },
-  "homepage": "https://github.com/saniyasaher20/namasteReact#readme",
   "devDependencies": {
     "autoprefixer": "^10.4.13",
     "parcel": "^2.8.3",
