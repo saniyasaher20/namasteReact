@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-// import { RESTAURANT_API } from "../constants";
 import RestaurantCard from "./RestaurantCard";
-import { filterData } from "../utils/helper"
 import Search from "./Search";
 
 const Body = () => {
@@ -23,11 +21,19 @@ const Body = () => {
         getRestaurants();
     }, [])
 
+    if (!allRestaurants) return null;
 
     return (
         <>
-            <Search filteredRestaurants={filteredRestaurants} setFilteredRestaurants={setFilteredRestaurants} />
-            <div className="container mx-auto py-6 flex gap-10 flex-wrap justify-between">
+            <section className="bg-gradient-to-b from-orange-700 to-red-800 py-10">
+            <div className="container w-2/4 py-6">
+                <Search
+                    allRestaurants={allRestaurants}
+                    setFilteredRestaurants={setFilteredRestaurants}
+                />
+                </div>
+            </section>
+            <div className="container mx-auto py-6 grid grid-cols-4 gap-8">
                 {
                     filteredRestaurants.map((res) => {
                         return (

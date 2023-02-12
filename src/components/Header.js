@@ -1,11 +1,10 @@
-import Logo from "../img/logo.avif"
-import Search from "./Search"
+import Logo from "../img/logo.png"
 import Login from "./Login"
 
 const Header = () => {
     return (
-        <header className="container py-5 flex justify-between">
-            <img src={Logo} width={150} alt="Zomato" />
+        <header className="container py-5 flex justify-between items-center">
+            <img src={Logo} width={120} alt="Zomato" />
             <Login />
         </header>
     )
