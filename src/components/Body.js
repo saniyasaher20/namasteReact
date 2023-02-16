@@ -2,27 +2,47 @@ import { useEffect, useState } from "react";
 import RestaurantCard from "./RestaurantCard";
 import { RESTAURANT_API } from "../constants";
 import Search from "./Search";
+import restaurantsData from "../api";
+import Notice from "./Notice";
 
 const Body = () => {
 
     const [allRestaurants, setAllRestaurants] = useState([]);
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+    const [isCorsOn, setIsCorsOn] = useState(false);
 
-    console.log(RESTAURANT_API)
     // Fetch restaurant data via API
     async function getRestaurants() {
-        const data = await fetch(RESTAURANT_API);
-        const json = await data.json();
-        // const json = await import("../api.json"); // offline api, change -> cards[0] 
-        // console.log(json?.data?.cards[0]?.data?.data?.cards)
-
-        setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards)
-        setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards)
+        // handle the error using try... catch
+        try {
+            const response = await fetch(RESTAURANT_API);
+            const json = await response.json();
+            // updated state variable restaurants with Swiggy API data
+            setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+            setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
+            setIsCorsOn(true)
+        } catch (error) {
+            console.log(error);
+        }
     }
 
+    // use useEffect for one time call getRestaurants using empty dependency array
     useEffect(() => {
-        getRestaurants();
-    }, [])
+
+        // if CORS is not enable in browser then show the local data only and show the CORS error in console
+        setTimeout(() => {
+            setAllRestaurants(restaurantsData);
+            setFilteredRestaurants(restaurantsData);
+            setIsCorsOn(false)
+        }, 0);
+
+        // if CORS is enable in browser then setTimeout will run and fetch the json data from API and render the UI
+        setTimeout(() => {
+            getRestaurants();
+        }, 20);
+
+
+    }, []);
 
     // early return
     if (!allRestaurants) return null;
@@ -53,6 +73,9 @@ const Body = () => {
                     })
                 }
             </div>
+            <Notice isCorsOn={isCorsOn} />
+            {console.log(isCorsOn)}
+
         </>
     )
 }
