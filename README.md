@@ -7,10 +7,11 @@ Live Website Link : [Food Finder App](https://website-clone-2.netlify.app/)
 
 Ans.Please refer the **Body.js** file inside src/components/Body.js for more detail. Here are summary of what needs be changed:
 
-1. Change the useEffect() hook. Add two setTimeout(). 
-At 0ms setTimeout(.., 0) will run and show the mocked data instantly.
-After 20ms the second setTimeout(.., 20) will run and fetch the data from API. But the problem is, even if the fetch API is'nt working, this setTimeout(.., 20) will still try to fetch data from API after 20ms and throws a error.
-If CORS is not enabled, we will see mocked data for 20ms, then we will see error. Solution in Step 2 👇
+1. 
+-Change the useEffect() hook. Add two setTimeout(). 
+-At 0ms setTimeout(.., 0) will run and show the mocked data instantly.
+-After 20ms the second setTimeout(.., 20) will run and fetch the data from API. But the problem is, even if the fetch -API is'nt working, this setTimeout(.., 20) will still try to fetch data from API after 20ms and throws a error.
+-If CORS is not enabled, we will see mocked data for 20ms, then we will see error. Solution in Step 2 👇
 
 ```jsx
 useEffect(() => {
