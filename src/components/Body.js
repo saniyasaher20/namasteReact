@@ -20,7 +20,7 @@ const Body = () => {
             // updated state variable restaurants with Swiggy API data
             setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
             setFilteredRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-            setIsCorsOn(true)
+            setIsCorsOn(true) // Show the notice "You are seeing live Swiggy Api data" - Notice.js
         } catch (error) {
             console.log(error);
         }
@@ -33,7 +33,7 @@ const Body = () => {
         setTimeout(() => {
             setAllRestaurants(restaurantsData);
             setFilteredRestaurants(restaurantsData);
-            setIsCorsOn(false)
+            setIsCorsOn(false) // Show the notice that "You are seeing mocked data. Cors is not enabled"  - Notice.js
         }, 0);
 
         // if CORS is enable in browser then setTimeout will run and fetch the json data from API and render the UI
