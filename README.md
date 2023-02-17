@@ -1,9 +1,9 @@
 # FOOD FINDER APP
 
-Live Website Link : [Food Finder App]("https://website-clone-2.netlify.app/")
+Live Website Link : [Food Finder App](https://website-clone-2.netlify.app/)
 
 ## Q. How to make the Swiggy Api work without Cors extension?
-(Credit: [Chetan Nada]("https://github.com/chetannada")) 
+(Credit: [Chetan Nada](https://github.com/chetannada)) 
 
 Ans.Please refer the **Body.js** file inside src/components/Body.js for more detail. Here are summary of what needs be changed:
 
