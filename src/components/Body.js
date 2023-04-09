@@ -2,6 +2,7 @@ import { restaurantList } from "../constants";
 import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer"
+import { async } from "regenerator-runtime";
 
 function filterFn(searchTxt, filteredRestaurants) {
     const filterData = filteredRestaurants.filter((restaurant) =>
@@ -28,7 +29,7 @@ const Body = () => {
         []
     );
 
-    async function getRestaurants() {
+    const getRestaurants = async () => {
         const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING");
         const json = await data.json();
         setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards)
@@ -47,16 +48,23 @@ const Body = () => {
                     }} />
                 <button onClick={() => {
                     const data = filterFn(searchTxt, allRestaurants);
-                    (data?.length === 0) ?  document.getElementById("err").innerHTML = "<h1>No Restaurants Found. Search Again😥</h1>"
+                    (data?.length === 0)
+                        ?
+                        (
+                            document.getElementById("err").innerHTML = "<h1>No Restaurants Found. Search Again😥</h1>",
+                            setFilteredRestaurants(data)
+                        )
                         :
-                        setFilteredRestaurants(data)
+                        (
+                            document.getElementById("err").innerHTML = "",
+                            setFilteredRestaurants(data)
+                        )
                         ;
-                    // console.log(data?.length === 0)
                 }
 
                 }>Filter</button>
                 <span id="err"></span>
-            </div>
+            </div >
 
             <div className="container card-parent" id="card-parent">
                 {
@@ -70,4 +78,5 @@ const Body = () => {
 
     );
 };
+
 export default Body;
